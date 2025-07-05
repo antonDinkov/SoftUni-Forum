@@ -1,0 +1,5 @@
+<div>
+    @for(post of sidePosts$ | async; track post._id) {
+        <app-post [post]="post"></app-post>
+    }
+</div>

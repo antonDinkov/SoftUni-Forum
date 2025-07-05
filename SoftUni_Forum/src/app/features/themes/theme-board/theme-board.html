@@ -1,3 +1,5 @@
 <div class="theme-title">
-    <app-theme-item></app-theme-item>
+    @for (theme of themes$ | async; track theme._id) {
+        <app-theme-item [theme]="theme"></app-theme-item>
+    }
 </div>
