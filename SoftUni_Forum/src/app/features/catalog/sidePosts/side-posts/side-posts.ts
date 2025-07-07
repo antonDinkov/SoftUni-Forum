@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Post } from '../post/post';
 import { Observable } from 'rxjs';
-import { SidePost } from '../../../models';
+import { SidePost } from '../../../../models';
 import { CommonModule } from '@angular/common';
-import { PostsService } from '../../../core/services';
+import { PostsService } from '../../../../core/services';
 
 @Component({
   selector: 'app-side-posts',

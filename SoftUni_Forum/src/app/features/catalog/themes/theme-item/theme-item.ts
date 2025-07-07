@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Theme } from '../../../models';
+import { Theme } from '../../../../models';
 
 @Component({
   selector: 'app-theme-item',
