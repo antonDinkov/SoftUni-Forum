@@ -4,16 +4,11 @@
             <img src="images/logo.png" alt="Logo">
             <p class="logo"> SoftUni Forum</p>
         </div>
-        <div class="mini-navbar">
-            <ul>
-                <li>
-                    <a routerLink="/login">Login</a>
-                </li>
-                <li>
-                    <a routerLink="/register">Register</a>
-                </li>
-            </ul>
-        </div>
+        @if (isLoggedIn()){
+            <app-logged-in></app-logged-in>
+        } @else {
+            <app-guest></app-guest>
+        }
     </div>
     <nav>
         <ul>
