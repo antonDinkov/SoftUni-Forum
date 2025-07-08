@@ -15,10 +15,6 @@ export class Header {
     private auth = inject(Auth);
     isLoggedIn = this.auth.isLoggedIn;
 
-    login() {
-        this.auth.login();
-    }
-
     logout() {
         this.auth.logout();
     }
