@@ -7,7 +7,7 @@ import { LoggedIn } from '../menu/logged-in/logged-in';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, Guest, LoggedIn],
+  imports: [RouterLink, Guest, LoggedIn, CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
