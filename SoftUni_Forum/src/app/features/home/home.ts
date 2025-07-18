@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Auth } from '../../core/services/auth';
 
 @Component({
   selector: 'app-home',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './home.css'
 })
 export class Home {
-
+    private auth = inject(Auth);
+    public isLoggedIn = this.auth.isLoggedIn;
+    public currentUser = this.auth.user;
 }

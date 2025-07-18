@@ -2,15 +2,15 @@
     <h3>User Info:</h3>
     <div class="flex">
         <p>Username: </p>
-        <p>Johny</p>
+        <p>{{currentUser()?.username}}</p>
     </div>
     <div class="flex">
         <p>Email: </p>
-        <p>john.doe&#64;gmail.com</p>
+        <p>{{currentUser()?.email}}</p>
     </div>
     <div class="flex">
         <p>Phone: </p>
-        <p>+359 885 888 888</p>
+        <p>{{currentUser()?.tel}}</p>
     </div>
-    <button class="edit-button">Edit</button>
+    <button class="edit-button" (click)="onEdit()">Edit</button>
 </div>
