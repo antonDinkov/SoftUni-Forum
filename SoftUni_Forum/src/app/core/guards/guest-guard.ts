@@ -2,14 +2,15 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { Auth } from '../services/auth';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const guestGuard: CanActivateFn = (route, state) => {
     const auth = inject(Auth);
-    const isLoggedIn = auth.isLoggedIn();
     const router = inject(Router);
+    const isLoggedIn = auth.isLoggedIn();
 
-    if (!isLoggedIn) {
-        router.navigate(['/login']);
+    if(isLoggedIn){
+        router.navigate(['/home']);
         return false;
     }
-    return true;
+    
+  return true;
 };

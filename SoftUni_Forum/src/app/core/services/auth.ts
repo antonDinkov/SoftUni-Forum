@@ -17,7 +17,7 @@ export class Auth {
     constructor(private http: HttpClient) { }
 
     login(email: string, password: string) {
-        if (!email || !password || password.length < 4) {
+        if (!email || !password || password.length < 5) {
             throw new Error('Invalid email or password');
         }
         return this.http.post<User>(`${environment.apiUrl}/api/login`, { email, password }, { withCredentials: true })

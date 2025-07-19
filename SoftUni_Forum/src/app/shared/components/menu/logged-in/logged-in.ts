@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Auth } from '../../../../core/services/auth';
 
 @Component({
   selector: 'app-logged-in',
@@ -8,5 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './logged-in.css'
 })
 export class LoggedIn {
-
+    private auth = inject(Auth);
+    private currentUser = this.auth.user;
+    readonly username = this.currentUser()?.username;
 }
