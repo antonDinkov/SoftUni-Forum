@@ -8,21 +8,24 @@ const cors = require('cors');
 const { errorHandler } = require('./utils');
 
 dbConnector()
-  .then(() => {
-    const config = require('./config/config');
+    .then(() => {
+        const config = require('./config/config');
 
-    const app = require('express')();
-    require('./config/express')(app);
+        const app = require('express')();
+        require('./config/express')(app);
 
-    app.use(cors({
-      origin: config.origin,
-      credentials: true
-    }));
+        
 
-    app.use('/api', apiRouter);
+        app.use('/api', apiRouter);
 
-    app.use(errorHandler);
+        
+        app.use((req, res, next) => {
+            console.log(`Incoming: ${req.method} ${req.url}`);
+            next();
+        });
+        
+        app.use(errorHandler);
 
-    app.listen(config.port, console.log(`Listening on port ${config.port}!`));
-  })
-  .catch(console.error);
+        app.listen(config.port, console.log(`Listening on port ${config.port}!`));
+    })
+    .catch(console.error);

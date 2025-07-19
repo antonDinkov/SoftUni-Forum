@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Auth } from '../../core/services/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -9,9 +10,11 @@ import { Auth } from '../../core/services/auth';
 })
 export class Profile {
     private auth = inject(Auth);
-    public currentUser = this.auth.user;
+    readonly currentUser = this.auth.user;
+    public userId = this.currentUser()?._id;
+    private router = inject(Router);
 
     onEdit():void{
-        alert('Edit functionality will be implemented in the next workshop!')
+        this.router.navigate(['/profile/edit']);
     }
 }

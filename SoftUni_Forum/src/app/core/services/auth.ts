@@ -41,24 +41,43 @@ export class Auth {
                     this._isLoggedIn.set(true);
                 }),
                 catchError(err => {
-                    // обработка на грешки
+
                     console.error('Registration error:', err);
                     return throwError(() => err);
                 })
             );
     }
 
+    update(tel: string, username: string, email: string) {
+        if (!username || !email || !tel) {
+            throw new Error('All fields required!');
+        }
+        console.log('auth function inside');
+        
+        return this.http.put<User>(`${environment.apiUrl}/api/users/profile`, { tel, username, email }, { withCredentials: true })
+            .pipe(
+                tap((user: User) => {
+                    this._user.set(user);
+                }),
+                catchError(err => {
+                    // обработка на грешки
+                    console.error('Error updating profile info:', err);
+                    return throwError(() => err);
+                })
+            )
+    }
+
     logout() {
         return this.http.post(`${environment.apiUrl}/api/logout`, {}, { withCredentials: true })
-    .pipe(
-        tap(() => {
-            this._user.set(null);
-            this._isLoggedIn.set(false);
-        }),
-        catchError(err => {
-            console.error('Logout error:', err);
-            return throwError(() => err);
-        })
-    );
+            .pipe(
+                tap(() => {
+                    this._user.set(null);
+                    this._isLoggedIn.set(false);
+                }),
+                catchError(err => {
+                    console.error('Logout error:', err);
+                    return throwError(() => err);
+                })
+            );
     }
 }

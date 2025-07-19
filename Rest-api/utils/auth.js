@@ -6,8 +6,9 @@ const {
 } = require('../models');
 
 function auth(redirectUnauthenticated = true) {
-
+    console.log('Inside auth guard')
     return function (req, res, next) {
+        console.log('Cookies:', req.cookies);
         const token = req.cookies[authCookieName] || '';
         Promise.all([
             jwt.verifyToken(token),

@@ -21,7 +21,7 @@ export class Register {
             username: ['', [Validators.required, Validators.minLength(5)]],
             email: ['', [Validators.required, Validators.email]],
             tel: ['', [Validators.required]],
-            password: ['', [Validators.required, Validators.minLength(5)]],  // ✅ поправен key
+            password: ['', [Validators.required, Validators.minLength(5)]],
             repass: ['', [Validators.required]]
         }, { validators: this.passwordMatch });
     }

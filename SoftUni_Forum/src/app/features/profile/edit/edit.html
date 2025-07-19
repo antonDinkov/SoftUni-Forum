@@ -1,1 +1,26 @@
-<p>edit works!</p>
+<div class="profile" *ngIf="currentUser as user">
+    <img src="images/profile.png" alt="default user">
+    <h3>User Info:</h3>
+    <form [formGroup]="form" (ngSubmit)="update()">
+        <div class="flex">
+            <p>Username: </p>
+            <input type="text" formControlName="username" id="username">
+        </div>
+        <div class="flex">
+            <p>Email: </p>
+            <input type="email" formControlName="email" id="email">
+        </div>
+        <div class="flex">
+            <p>Phone: </p>
+            <div>
+                <select formControlName="telPrefix" id="select-tel" class="tel">
+                    <option value="+359">+359</option>
+                    <option value="+356">+356</option>
+                </select>
+                <input type="text" formControlName="tel" id="tel">
+            </div>
+        </div>
+        <button type="button" class="red-button" (click)="cancel()">Cancel</button>
+        <button type="submit" class="green-button">Save</button>
+    </form>
+</div>
