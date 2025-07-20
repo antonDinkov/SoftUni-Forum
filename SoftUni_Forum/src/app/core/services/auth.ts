@@ -68,6 +68,8 @@ export class Auth {
     }
 
     logout() {
+        console.log('Logout activated');
+        
         return this.http.post(`${environment.apiUrl}/api/logout`, {}, { withCredentials: true })
             .pipe(
                 tap(() => {

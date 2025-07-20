@@ -14,7 +14,11 @@ export class Logout {
 
     constructor() {
         this.auth.logout().subscribe({
-            next: () => this.router.navigate(['/']),
+            next: () => {
+                console.log('After subscription');
+                
+                this.router.navigate(['/'])
+            },
             error: err => console.error('Logout failed:', err)
         });
     }

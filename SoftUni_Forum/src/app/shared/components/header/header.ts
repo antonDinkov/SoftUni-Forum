@@ -14,8 +14,4 @@ import { LoggedIn } from '../menu/logged-in/logged-in';
 export class Header {
     private auth = inject(Auth);
     isLoggedIn = this.auth.isLoggedIn;
-
-    logout() {
-        this.auth.logout();
-    }
 }
