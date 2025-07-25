@@ -63,7 +63,10 @@ export class Register {
         }
 
         return '';
-        /* if (this.username?.errors?.['required']) {
+        
+    }
+
+    /* if (this.username?.errors?.['required']) {
             console.log(this.username?.errors);
             return 'Username is required!';
         }
@@ -73,7 +76,6 @@ export class Register {
         }
 
         return ''; */
-    }
 
     /* onUsernameBlur() {
         this.username?.markAsTouched();
