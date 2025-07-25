@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../../core/services/auth';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,8 +16,8 @@ export class Register {
 
     form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-        this.form = this.fb.group({
+    constructor(private formBuilder: FormBuilder) {
+        this.form = this.formBuilder.nonNullable.group({
             username: ['', [Validators.required, Validators.minLength(5)]],
             email: ['', [Validators.required, Validators.email]],
             tel: ['', [Validators.required]],
@@ -26,7 +26,7 @@ export class Register {
         }, { validators: this.passwordMatch });
     }
 
-    passwordMatch(group: FormGroup) {
+    passwordMatch(group: AbstractControl): ValidationErrors | null {
         const pass = group.get('password')?.value;
         const repass = group.get('repass')?.value;
         return pass === repass ? null : { noMatch: true };
