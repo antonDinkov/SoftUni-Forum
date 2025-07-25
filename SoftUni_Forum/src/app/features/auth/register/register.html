@@ -6,12 +6,15 @@
         <!-- username -->
         <p class="field field-icon">
             <label for="username"><span><i class="fas fa-user"></i></span></label>
-            <input [class.input-error]="form.get('username')?.invalid && form.get('username')?.touched" type="text"
+            <input [class.input-error]="isUsernameInvalid" type="text"
                 formControlName="username" id="username" placeholder="Johny">
         </p>
-        <p class="error" *ngIf="form.get('username')?.hasError('required') && form.get('username')?.touched">
-            Username is required!
-        </p>
+        @if (isUsernameInvalid) {
+            <p class="error">
+                {{invalidUsernameMsg}}
+            </p>
+        }
+        
 
         <!-- email -->
         <p class="field field-icon">
