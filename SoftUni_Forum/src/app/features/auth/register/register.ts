@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../../core/services/auth';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class Register {
     private auth = inject(Auth);
     private router = inject(Router);
-    private usernameErrorsAvailable = signal(false);
+    /* public usernameErrorsAvailable = signal(false); */
 
     form: FormGroup;
 
@@ -28,6 +28,17 @@ export class Register {
             })
         }/* , { validators: this.passwordMatch } */);
     }
+
+    /* updateUsernameErrorVisibility() {
+        const usernameControl = this.username;
+        if (!usernameControl) return;
+
+        if (usernameControl.invalid && usernameControl.touched) {
+            this.usernameErrorsAvailable.set(true);
+        } else {
+            this.usernameErrorsAvailable.set(false);
+        }
+    } */
     /* passwordMatch(group: AbstractControl): ValidationErrors | null {
         const pass = group.get('password')?.value;
         const repass = group.get('repass')?.value;
@@ -39,43 +50,23 @@ export class Register {
     };
 
     get isUsernameInvalid(): boolean {
-        return !!(this.username?.invalid && (this.username.touched || this.username.dirty));
+        const username = this.username;
+        return !!(username?.invalid && (username.dirty || username.touched));
     }
 
-    get invalidUsernameMsg(): string {
-        console.log(this.username);
-        const errors = this.username?.errors;
-
-        if (errors) {
-            this.usernameErrorsAvailable.set(true);
-        }
-
-        if (!this.usernameErrorsAvailable()) {
-            return '';
-        }
-
-        if (errors?.['required']) {
+    invalidUsernameMsg(): string {
+        if (this.username?.touched && this.username?.errors?.['required']) {
             return 'Username is required!';
         }
-
-        if (errors?.['minlength']) {
+        if (this.username?.errors?.minlength.requiredLength) {
+            console.log(this.username?.errors?.['minlength']);
+            
             return 'Username should have at least 5 characters!';
         }
-
         return '';
-        
     }
 
-    /* if (this.username?.errors?.['required']) {
-            console.log(this.username?.errors);
-            return 'Username is required!';
-        }
 
-        if (this.username?.errors?.['minlength']) {
-            return 'Username should have at least 5 characters!';
-        }
-
-        return ''; */
 
     /* onUsernameBlur() {
         this.username?.markAsTouched();
