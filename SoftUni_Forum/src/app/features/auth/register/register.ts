@@ -54,11 +54,11 @@ export class Register {
         return !!(username?.invalid && (username.dirty || username.touched));
     }
 
-    invalidUsernameMsg(): string {
+    get invalidUsernameMsg(): string {
         if (this.username?.touched && this.username?.errors?.['required']) {
             return 'Username is required!';
         }
-        if (this.username?.errors?.minlength.requiredLength) {
+        if (this.username?.errors?.['minlength']) {
             console.log(this.username?.errors?.['minlength']);
             
             return 'Username should have at least 5 characters!';
