@@ -6,28 +6,27 @@
         <!-- username -->
         <p class="field field-icon">
             <label for="username"><span><i class="fas fa-user"></i></span></label>
-            <input [class.input-error]="isUsernameInvalid" type="text"
-                formControlName="username" id="username" placeholder="Johny">
+            <input [class.input-error]="isUsernameInvalid" type="text" formControlName="username" id="username"
+                placeholder="Johny">
         </p>
         @if (isUsernameInvalid) {
-            <p class="error">
-                {{invalidUsernameMsg}}
-            </p>
+        <p class="error">
+            {{invalidUsernameMsg}}
+        </p>
         }
-        
+
 
         <!-- email -->
         <p class="field field-icon">
             <label for="email"><span><i class="fas fa-envelope"></i></span></label>
             <input type="email" id="email" formControlName="email" placeholder="john.doe@gmail.com"
-                [class.input-error]="form.get('email')?.invalid && form.get('email')?.touched" />
+                [class.input-error]="isEmailInvalid" />
         </p>
-        <p class="error" *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
-            Email is required!
+        @if (isEmailInvalid) {
+        <p class="error">
+            {{invalidEmailMsg}}
         </p>
-        <p class="error" *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
-            Email is not valid!
-        </p>
+        }
 
         <!-- telephone -->
         <p class="field field-icon">
@@ -36,32 +35,41 @@
                 <option value="00359">+359</option>
             </select>
             <input type="text" id="tel" formControlName="tel" placeholder="885 888 888"
-                [class.input-error]="form.get('tel')?.invalid && form.get('tel')?.touched" />
+                [class.input-error]="isTelInvalid" />
         </p>
 
-        <!-- password -->
+        @if (isTelInvalid) {
+        <p class="error">
+            {{invalidTelMsg}}
+        </p>
+        }
+
+        <div formGroupName="passwords">
+<!-- password -->
         <p class="field field-icon">
             <label for="password"><span><i class="fas fa-lock"></i></span></label>
             <input type="password" id="password" formControlName="password" placeholder="******"
-                [class.input-error]="form.get('password')?.invalid && form.get('password')?.touched" />
+                [class.input-error]="isPasswordInvalid" />
         </p>
-        <p class="error" *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched">
-            Password is required!
+        @if (isPasswordInvalid){
+        <p class="error">
+            {{invalidPassMsg}}
         </p>
-        <p class="error" *ngIf="form.get('password')?.hasError('minlength') && form.get('password')?.touched">
-            Password must be at least 5 characters!
-        </p>
+        }
 
         <!-- rePassword -->
         <p class="field field-icon">
             <label for="rePassword"><span><i class="fas fa-lock"></i></span></label>
-            <input type="password" id="repass" formControlName="repass" placeholder="******" [class.input-error]="
-          (form.hasError('noMatch') && form.get('repass')?.touched) || (form.get('repass')?.invalid && form.get('repass')?.touched)
-        " />
+            <input type="password" id="repass" formControlName="repass" placeholder="******"
+                [class.input-error]="isRepassInvalid" />
         </p>
-        <p class="error" *ngIf="form.hasError('noMatch') && form.get('repass')?.touched">
-            Passwords do not match!
+        @if (isRepassInvalid) {
+        <p class="error">
+            {{ invalidRepassMsg }}
         </p>
+        }
+        </div>
+        
 
         <button [disabled]="form.invalid">Create Account</button>
 
