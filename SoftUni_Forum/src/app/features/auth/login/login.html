@@ -5,25 +5,24 @@
 
         <p class="field field-icon">
             <label for="email"><span><i class="fas fa-envelope"></i></span></label>
-            <input class="input-error" type="email" formControlName="email" id="email" placeholder="john.doe@gmail.com">
+            <input class="input-error" type="email" formControlName="email" id="email"
+                placeholder="john.doe&#64;gmail.com">
         </p>
-        <p class="error" *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">
-            Email is required!
+        @if (isEmailInvalid){
+        <p class="error">
+            {{invalidEmailMsg}}
         </p>
-        <!-- <p class="error">
-                    Email is not valid!
-                </p> -->
+        }
 
         <p class="field field-icon">
             <label for="password"><span><i class="fas fa-lock"></i></span></label>
             <input type="password" formControlName="password" id="password" placeholder="******">
         </p>
-        <p class="error" *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
-            Password is required!
+        @if (isPasswordInvalid) {
+        <p class="error">
+            {{invalidPasswordMsg}}
         </p>
-        <p class="error" *ngIf="form.get('password')?.touched && form.get('password')?.hasError('minlength')">
-            Password must be at least 4 characters!
-        </p>
+        }
 
         <button [disabled]="form.invalid">Login</button>
 
