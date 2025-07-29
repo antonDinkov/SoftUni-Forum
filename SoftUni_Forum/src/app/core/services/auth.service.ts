@@ -56,8 +56,14 @@ export class Auth {
                     this._isLoggedIn.set(true);
                 }),
                 catchError(err => {
-                    console.warn('❗ Session restore failed', err);
-                    return of(null);
+                    /* console.warn('❗ Session restore failed', err);
+                    return of(null); */
+                    if (err.status === 401) {
+                        console.warn('Not logged in – no session to restore');
+                    } else {
+                        console.error('Unexpected error restoring session:', err);
+                    }
+                    return of(null); // => предотвратява crash-а и console error-а
                 })
             );
     }
