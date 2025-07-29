@@ -48,7 +48,7 @@ export class ThemeContent {
   ngOnInit(): void {
     // Get theme ID from route params
     this.route.params.subscribe(params => {
-      const themeId = params['themeId'];
+      const themeId = params['id'];
       console.log('Theme ID:', themeId);
       // In a real app, you would fetch theme details and comments here
     });

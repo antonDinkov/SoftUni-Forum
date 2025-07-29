@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { User } from '../../models';
 import { HttpClient } from '@angular/common/http';
-import { catchError, tap, throwError } from 'rxjs';
+import { catchError, of, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -48,12 +48,26 @@ export class Auth {
             );
     }
 
+    restoreSession() {
+        return this.http.get<User>(`${environment.apiUrl}/api/users/profile`, { withCredentials: true })
+            .pipe(
+                tap(user => {
+                    this._user.set(user);
+                    this._isLoggedIn.set(true);
+                }),
+                catchError(err => {
+                    console.warn('❗ Session restore failed', err);
+                    return of(null);
+                })
+            );
+    }
+
     update(tel: string, username: string, email: string) {
         if (!username || !email || !tel) {
             throw new Error('All fields required!');
         }
         console.log('auth function inside');
-        
+
         return this.http.put<User>(`${environment.apiUrl}/api/users/profile`, { tel, username, email }, { withCredentials: true })
             .pipe(
                 tap((user: User) => {
@@ -69,7 +83,7 @@ export class Auth {
 
     logout() {
         console.log('Logout activated');
-        
+
         return this.http.post(`${environment.apiUrl}/api/logout`, {}, { withCredentials: true })
             .pipe(
                 tap(() => {
