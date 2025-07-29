@@ -2,31 +2,28 @@
     <div class="header-background">
         <span>New Theme</span>
     </div>
-    <form [formGroup]="form" (ngSubmit)="createTheme()">
+    <form #form="ngForm" (ngSubmit)="createTheme()">
         <div class="new-theme-title">
             <label for="themeName">Title <span class="red">*</span></label>
-            <input type="text" formControlName="themeName" id="themeName">
-            <p class="error">
-                Theme name is required.
-            </p>
-            <p class="error">
-                Theme name must be at least 5 characters long.
-            </p>
+            <input [class.input-error]="titleError" type="text" name="themeName" id="themeName" [(ngModel)]="themeName" (blur)="validateTitle()">
+            @if (titleError) {
+                <p class="error">
+                    {{titleErrorMsg}}
+                </p>
+            }
         </div>
         <div class="new-theme-content">
             <label for="postText">Post <span class="red">*</span></label>
-            <textarea type="text" formControlName="postText" id="postText" rows="8" class="height"></textarea>
+            <textarea [class.input-error]="contentError" type="text" name="postText" id="postText" rows="8" class="height" [(ngModel)]="postText" (blur)="validateContent()"></textarea>
+            @if(contentError){
             <p class="error">
-                The field with your post is required.
+                {{contentErrorMsg}}
             </p>
-            <p class="error">
-                Post must be at least 10 characters long.
-            </p>
+            }
         </div>
         <div class="new-theme-buttons">
             <button type="button" class="cancel" (click)="cancelTheme($event)">Cancel</button>
-            <button type="submit" class="public">Post</button>
+            <button [disabled]="titleError || contentError" type="submit" class="public">Post</button>
         </div>
-
     </form>
 </div>

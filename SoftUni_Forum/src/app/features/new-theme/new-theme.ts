@@ -1,33 +1,59 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CreateTheme } from '../../core/services/create-theme';
 import { Router, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-new-theme',
-    imports: [RouterLink, ReactiveFormsModule, CommonModule],
+    standalone: true,
+    imports: [RouterLink, FormsModule],
     templateUrl: './new-theme.html',
     styleUrl: './new-theme.css'
 })
 export class NewTheme {
     private theme = inject(CreateTheme);
-    public form: FormGroup;
     private router = inject(Router);
 
-    constructor(private fb: FormBuilder){
-        this.form = this.fb.group({
-            themeName: ['', Validators.required],
-            postText: ['', Validators.required]
-        })
+    themeName: string = '';
+    titleError: boolean = true;
+    titleErrorMsg: string = '';
+
+    postText: string = '';
+    contentError: boolean = true;
+    contentErrorMsg: string = '';
+
+    validateTitle():void {
+        if(!this.themeName){
+            this.titleError = true;
+            this.titleErrorMsg = 'Theme name is required';
+        } else if (this.themeName.length < 5) {
+            this.titleError = true;
+            this.titleErrorMsg = 'Theme name must be atleast 5 characters long';
+        } else {
+            this.titleError = false;
+            this.titleErrorMsg = '';
+        }
+    };
+
+    validateContent(): void {
+        if (!this.postText) {
+            this.contentError = true;
+            this.contentErrorMsg = 'Textfield is required!'
+        } else if (this.postText.length < 10) {
+            this.contentError = true;
+            this.contentErrorMsg = 'Textfield must be atleast 10 characters long!'
+        } else {
+            this.contentError = false;
+            this.contentErrorMsg = '';
+        }
     }
 
     createTheme () {
-        if (this.form.invalid) return;
+        if (!this.themeName || !this.postText) return;
 
-        const { themeName, postText } = this.form.value;
+        
 
-        this.theme.create(themeName, postText).subscribe({
+        this.theme.create(this.themeName, this.postText).subscribe({
             next: () => this.router.navigate(['/catalog']),
             error: (err) => {
                 console.error('Failed to create new theme: ', err);
