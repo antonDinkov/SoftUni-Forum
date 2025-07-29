@@ -10,7 +10,7 @@ export const routes: Routes = [
     { path: 'new', loadComponent: () => import('./features/new-theme/new-theme').then(c => c.NewTheme), canActivate: [authGuard] },
     { path: 'login', loadComponent: () => import('./features/auth/login/login').then(c => c.Login), canActivate: [guestGuard] },
     { path: 'register', loadComponent: () => import('./features/auth/register/register').then(c => c.Register), canActivate: [guestGuard] },
-    { path: 'logout', loadComponent: () => import('./features/auth/logout/logout').then(c => c.Logout), canActivate: [guestGuard] },
+    { path: 'logout', loadComponent: () => import('./features/auth/logout/logout').then(c => c.Logout), canActivate: [authGuard] },
     { path: 'profile', loadComponent: () => import('./features/profile/profile').then(c => c.Profile), canActivate: [authGuard] },
     { path: 'profile/edit', loadComponent: () => import('./features/profile/edit/edit').then(c => c.Edit), canActivate: [authGuard] },
     { path: '**', loadComponent: () => import('./shared/components/not-found/not-found').then(c => c.NotFound) }
