@@ -6,6 +6,7 @@ export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', loadComponent: () => import('./features/home/home').then(c => c.Home) },
     { path: 'catalog', loadComponent: () => import('./features/catalog/catalog').then(c => c.Catalog) },
+    { path: 'catalog/:id', loadComponent: () => import('./features/theme-content/theme-content').then(c => c.ThemeContent) },
     { path: 'new', loadComponent: () => import('./features/new-theme/new-theme').then(c => c.NewTheme), canActivate: [authGuard] },
     { path: 'login', loadComponent: () => import('./features/auth/login/login').then(c => c.Login), canActivate: [guestGuard] },
     { path: 'register', loadComponent: () => import('./features/auth/register/register').then(c => c.Register), canActivate: [guestGuard] },

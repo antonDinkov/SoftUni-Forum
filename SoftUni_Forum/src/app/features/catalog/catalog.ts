@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ThemeBoard } from './themes';
 import { SidePosts } from './sidePosts/side-posts/side-posts';
-import { Auth } from '../../core/services/auth';
+import { Auth } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-catalog',
